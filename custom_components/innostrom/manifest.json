@@ -1,6 +1,7 @@
 {
   "domain": "innostrom",
   "name": "Innostrom dynamic tariffs",
+  "categories": ["energy.energy_prices"],
   "codeowners": ["@LukasSkywalker"],
   "config_flow": true,
   "dependencies": ["auth", "my"],
