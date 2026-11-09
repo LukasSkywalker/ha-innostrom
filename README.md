@@ -70,7 +70,7 @@ span:
 now:
   show: true
 series:
-  - entity: sensor.electricity_price
+  - entity: sensor.electricity_price  # sensor.strompreis on a German Home Assistant
     name: Price
     curve: stepline
     float_precision: 4
@@ -79,8 +79,7 @@ series:
 ```
 
 Tomorrow stays empty until the prices are published at 16:00. For the feed-in tariff, use
-`sensor.feed_in_tariff`. On a German Home Assistant the sensors are `sensor.strompreis` and
-`sensor.abnahmevergutung`.
+`sensor.feed_in_tariff` (`sensor.abnahmevergutung` on a German Home Assistant).
 
 ## Development
 
