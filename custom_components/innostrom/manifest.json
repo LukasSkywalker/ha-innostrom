@@ -1,0 +1,13 @@
+{
+  "domain": "innostrom",
+  "name": "Innostrom dynamic tariffs",
+  "codeowners": ["@LukasSkywalker"],
+  "config_flow": true,
+  "dependencies": ["auth", "my"],
+  "documentation": "https://github.com/LukasSkywalker/ha-innostrom",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/LukasSkywalker/ha-innostrom/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

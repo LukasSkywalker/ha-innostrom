@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "pick_implementation": {
+        "title": "Energieversorger wählen",
+        "data": { "implementation": "Energieversorger" }
+      }
+    },
+    "progress": {
+      "link": "Öffnen Sie [diese Seite]({url}) und wählen Sie den Messpunkt, dessen Tarif Home Assistant verwenden soll. Dieser Dialog geht von selbst weiter, sobald Sie einen gewählt haben."
+    },
+    "abort": {
+      "cannot_connect": "Innostrom ist nicht erreichbar. Bitte versuchen Sie es später erneut.",
+      "no_metering_point": "Für Ihr Kundenkonto sind derzeit keine Messpunkte verfügbar. Bitte wenden Sie sich an Ihren Energieversorger.",
+      "link_timeout": "Innert zehn Minuten wurde kein Messpunkt gewählt. Bitte fügen Sie die Integration erneut hinzu."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "integrated": { "name": "Strompreis" },
+      "feed_in": { "name": "Abnahmevergütung" }
+    }
+  }
+}

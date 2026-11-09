@@ -1,0 +1,24 @@
+{
+  "config": {
+    "step": {
+      "pick_implementation": {
+        "title": "Choose your energy provider",
+        "data": { "implementation": "Energy provider" }
+      }
+    },
+    "progress": {
+      "link": "Open [the linking page]({url}) and choose the metering point whose prices Home Assistant should read. This dialog continues on its own once you have chosen one."
+    },
+    "abort": {
+      "cannot_connect": "Could not reach Innostrom. Please try again later.",
+      "no_metering_point": "Your energy provider has no metering point with dynamic tariffs for you.",
+      "link_timeout": "No metering point was chosen within ten minutes. Please add the integration again."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "integrated": { "name": "Electricity price" },
+      "feed_in": { "name": "Feed-in tariff" }
+    }
+  }
+}
