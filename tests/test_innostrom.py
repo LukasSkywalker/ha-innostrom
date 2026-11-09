@@ -71,3 +71,12 @@ async def test_login_link_and_prices(hass, aioclient_mock, enable_custom_integra
     freezer.move_to("2026-11-09T15:15:00+01:00")  # past the only slot
     entry.runtime_data.async_update_listeners()
     assert hass.states.get("sensor.electricity_price").state == "unavailable"
+
+    # Removing unlinks the metering point, also once the access token has expired.
+    freezer.move_to("2026-11-11T12:00:00+01:00")
+    aioclient_mock.post(f"{AUTHENTIK}/token/", json={"access_token": "at2", "token_type": "Bearer", "expires_in": 86400})
+    aioclient_mock.delete(f"{API}/emsLink", json={"unlink_status": "link_removed"})
+    await hass.config_entries.async_remove(entry.entry_id)
+    method, url, _, headers = aioclient_mock.mock_calls[-1]
+    assert (method.lower(), url.path, headers["authorization"]) == ("delete", "/api/v2/emsLink", "Bearer at2")
+    assert url.query["ems_instance_id"] == entry.data["ems_instance_id"]

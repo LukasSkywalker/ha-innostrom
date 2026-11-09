@@ -3,6 +3,8 @@
 from datetime import datetime, time, timedelta
 import logging
 
+from aiohttp import ClientError
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant, callback
@@ -119,3 +121,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     return await hass.config_entries.async_unload_platforms(entry, [Platform.SENSOR])
+
+
+async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Unlink the metering point, so that adding the integration again lets the customer choose one."""
+    async_register_brands(hass)  # also when the entry never loaded
+    implementation = await config_entry_oauth2_flow.async_get_config_entry_implementation(hass, entry)
+    try:
+        # Refreshed by hand: the entry is already gone, so OAuth2Session could not store a new token.
+        token = await implementation.async_refresh_token(entry.data["token"])
+        response = await config_entry_oauth2_flow.async_oauth2_request(
+            hass, token, "delete", f"{API}/emsLink", params={"ems_instance_id": entry.data["ems_instance_id"]}
+        )
+        response.raise_for_status()
+    except (ClientError, TimeoutError) as err:
+        _LOGGER.warning("Could not unlink the metering point from this instance: %s", err)

@@ -8,11 +8,20 @@ Supported energy providers: Swisspower, AEW, Alpen Energie Meiringen, EGA, EW H�
 
 ## Install
 
-Requires Home Assistant 2025.4 or newer and [HACS](https://hacs.xyz).
+Requires Home Assistant 2025.4 or newer.
 
-1. [Open this repository in HACS](https://my.home-assistant.io/redirect/hacs_repository/?owner=LukasSkywalker&repository=ha-innostrom&category=integration),
-   or add it by hand: HACS → ⋮ → Custom repositories → `https://github.com/LukasSkywalker/ha-innostrom`,
-   type *Integration*.
+### Home Assistant 2026.11 and newer: Marketplace
+
+1. Settings → Marketplace → **Add from link** (upper right), enter `LukasSkywalker/ha-innostrom` and select
+   **Add**. This repository is not in the Marketplace catalog, so the Marketplace asks you to connect
+   GitHub the first time: open the link it shows and enter the code there.
+2. Open **Innostrom dynamic tariffs** in the list, select **Install** and confirm the version with
+   **Install**. No restart is needed: the setup usually opens right away, so continue with step 2 of
+   [Set up](#set-up).
+
+### Home Assistant 2025.4 to 2026.10: HACS
+
+1. HACS → ⋮ → Custom repositories → `https://github.com/LukasSkywalker/ha-innostrom`, type *Integration*.
 2. Install **Innostrom dynamic tariffs** and restart Home Assistant.
 
 ## Set up
@@ -24,6 +33,9 @@ Requires Home Assistant 2025.4 or newer and [HACS](https://hacs.xyz).
 4. You come back through My Home Assistant. The first time, it asks for your Home Assistant's address.
 5. Choose the metering point whose prices Home Assistant should read, on the page linked in the dialog.
    The dialog finishes on its own once you have chosen one (within ten minutes).
+
+To use a different metering point, remove the integration and add it again: removing it also unlinks
+the metering point from your Home Assistant.
 
 ## Sensors
 
