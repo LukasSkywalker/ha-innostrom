@@ -51,6 +51,37 @@ provider has not published them yet, Home Assistant tries again every 15 minutes
 **Energy dashboard:** Settings → Dashboards → Energy → Electricity grid → *Use an entity with current
 price*: *Electricity price* for consumption and *Feed-in tariff* for return to grid.
 
+## Price chart
+
+Today's and tomorrow's prices as a chart, with a marker at the current time. It needs the
+[ApexCharts card](https://github.com/RomRider/apexcharts-card): on 2026.11 or newer,
+[search for it in the Marketplace](https://my.home-assistant.io/redirect/marketplace_browse/?search=apexcharts),
+install it and reload the browser. Then edit a dashboard → Add card → Manual, and paste:
+
+```yaml
+type: custom:apexcharts-card
+header:
+  show: true
+  title: Electricity price
+  show_states: true
+graph_span: 2d
+span:
+  start: day
+now:
+  show: true
+series:
+  - entity: sensor.electricity_price
+    name: Price
+    curve: stepline
+    float_precision: 4
+    data_generator: |
+      return entity.attributes.prices.map((p) => [new Date(p.start).getTime(), p.price]);
+```
+
+Tomorrow stays empty until the prices are published at 16:00. For the feed-in tariff, use
+`sensor.feed_in_tariff`. On a German Home Assistant the sensors are `sensor.strompreis` and
+`sensor.abnahmevergutung`.
+
 ## Development
 
 ```bash
